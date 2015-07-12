@@ -1,0 +1,6 @@
+---
+name: test-server
+dependencies:
+- ruby
+files:
+- test-server/*
