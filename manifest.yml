@@ -1,0 +1,54 @@
+---
+name: learn-bosh
+director_uuid: 4796378f-cc91-4d93-a1b0-75a9af101708
+
+releases:
+- name: learn-bosh
+  version: latest
+
+networks:
+- name: default
+  subnets:
+  - range: 10.244.0.0/30
+    reserved: ["10.244.0.1"]
+    static: ["10.244.0.2"]
+    cloud_properties:
+      name: random
+  - range: 10.244.0.4/30
+    reserved: ["10.244.0.5"]
+    static: ["10.244.0.6"]
+    cloud_properties:
+      name: random
+
+resource_pools:
+- name: default
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+    version: latest
+  network: default
+  cloud_properties: {}
+
+compilation:
+  reuse_compilation_vms: true
+  workers: 1
+  network: default
+  cloud_properties: {}
+
+update:
+  canaries: 1
+  canary_watch_time: 3000 - 10000
+  update_watch_time: 3000 - 5000
+  max_in_flight: 1
+  max_errors: 1
+
+jobs:
+- name: test-server
+  templates:
+  - name: test-server
+  instances: 1
+  resource_pool: default
+  networks:
+  - name: default
+    static_ips: [10.244.0.2]
+
+properties: {}
