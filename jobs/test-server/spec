@@ -1,0 +1,7 @@
+---
+name: test-server
+templates: {}
+packages:
+- test-server
+
+properties: {}
