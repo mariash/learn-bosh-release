@@ -1,8 +1,11 @@
 set -e
 
-mkdir -p ${BOSH_INSTALL_TARGET}/{bin,gem_home}
-cd test-server
+cp -r test-server/* ${BOSH_INSTALL_TARGET}
 
-gem_cmd="/var/vcap/packages/ruby/bin/gem \
-    install --local --verbose --no-ri --no-rdoc -w \
-    -n ${BOSH_INSTALL_TARGET}/bin -i ${BOSH_INSTALL_TARGET}/gem_home"
+cd ${BOSH_INSTALL_TARGET}
+
+find .
+
+mkdir -p ${BOSH_INSTALL_TARGET}/gem_home
+
+/var/vcap/packages/ruby/bin/bundle install --local --no-prune --path ${BOSH_INSTALL_TARGET}/gem_home

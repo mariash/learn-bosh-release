@@ -1,7 +1,9 @@
 ---
 name: test-server
-templates: {}
+templates:
+  ctl: bin/ctl
 packages:
 - test-server
+- ruby
 
 properties: {}
