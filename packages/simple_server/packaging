@@ -1,6 +1,6 @@
 set -e
 
-cp -r test-server/* ${BOSH_INSTALL_TARGET}
+cp -r simple_server/* ${BOSH_INSTALL_TARGET}
 
 cd ${BOSH_INSTALL_TARGET}
 

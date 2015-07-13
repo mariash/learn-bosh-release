@@ -1,14 +1,14 @@
 #!/bin/bash
 
-RUN_DIR=/var/vcap/sys/run/test-server
-LOG_DIR=/var/vcap/sys/log/test-server
+RUN_DIR=/var/vcap/sys/run/app
+LOG_DIR=/var/vcap/sys/log/app
 
-PIDFILE=$RUN_DIR/test-server.pid
+PIDFILE=$RUN_DIR/app.pid
 RUNAS=vcap
 
 export PATH=/var/vcap/packages/ruby/bin:$PATH
-export BUNDLE_GEMFILE=/var/vcap/packages/test-server/Gemfile
-export GEM_HOME=/var/vcap/packages/test-server/gem_home/ruby/2.1.0
+export BUNDLE_GEMFILE=/var/vcap/packages/simple_server/Gemfile
+export GEM_HOME=/var/vcap/packages/simple_server/gem_home/ruby/2.1.0
 
 function pid_exists() {
   ps -p $1 &> /dev/null
@@ -23,7 +23,9 @@ case $1 in
     echo $$ > $PIDFILE
 
     exec chpst -u $RUNAS:$RUNAS \
-      bundle exec ruby /var/vcap/packages/test-server/app.rb -p 8080 -o 0.0.0.0 \
+      bundle exec ruby /var/vcap/packages/simple_server/app.rb \
+      -p <%= p("port") %> \
+      -o 0.0.0.0 \
       >>$LOG_DIR/server.stdout.log 2>>$LOG_DIR/server.stderr.log
     ;;
 

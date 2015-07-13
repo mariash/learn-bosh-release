@@ -1,0 +1,17 @@
+---
+name: router
+templates:
+  ctl: bin/ctl
+  config.json.erb: config/config.json
+
+packages:
+- simple_server
+- ruby
+
+properties:
+  port:
+    description: "Port on which server is listening"
+    default: 8080
+  servers:
+    description: "List of servers to redirect requests"
+    default: []

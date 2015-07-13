@@ -9,16 +9,12 @@ releases:
 networks:
 - name: default
   subnets:
-  - range: 10.244.0.0/30
-    reserved: ["10.244.0.1"]
-    static: ["10.244.0.2"]
-    cloud_properties:
-      name: random
-  - range: 10.244.0.4/30
-    reserved: ["10.244.0.5"]
-    static: ["10.244.0.6"]
-    cloud_properties:
-      name: random
+<% (0..28).each_with_index do |i| %>
+  - range: 10.244.0.<%= i*4 %>/30
+    reserved: [10.244.0.<%= i*4 + 1 %>]
+    static: [10.244.0.<%= i*4 + 2 %>]
+    cloud_properties: {}
+<% end %>
 
 resource_pools:
 - name: default
@@ -29,26 +25,24 @@ resource_pools:
   cloud_properties: {}
 
 compilation:
-  reuse_compilation_vms: true
-  workers: 1
+  workers: 8
   network: default
   cloud_properties: {}
 
 update:
   canaries: 1
-  canary_watch_time: 3000 - 10000
-  update_watch_time: 3000 - 5000
-  max_in_flight: 1
-  max_errors: 1
+  canary_watch_time: 60000
+  update_watch_time: 60000
+  max_in_flight: 4
 
 jobs:
-- name: test-server
+- name: app
   templates:
-  - name: test-server
+  - name: app
   instances: 1
   resource_pool: default
   networks:
   - name: default
-    static_ips: [10.244.0.2]
-
-properties: {}
+    static_ips:
+    - 10.244.0.2
+  properties: {}

@@ -1,9 +1,0 @@
----
-name: test-server
-templates:
-  ctl: bin/ctl
-packages:
-- test-server
-- ruby
-
-properties: {}
