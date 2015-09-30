@@ -1,6 +1,6 @@
 ---
 name: learn-bosh
-director_uuid: 4796378f-cc91-4d93-a1b0-75a9af101708
+director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
 
 releases:
 - name: learn-bosh
