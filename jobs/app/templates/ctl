@@ -39,6 +39,6 @@ case $1 in
     ;;
 
   *)
-  echo "Usage: ctl {start|stop|console}" ;;
+  echo "Usage: ctl {start|stop}" ;;
 esac
 exit 0
