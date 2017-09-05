@@ -1,27 +1,14 @@
 ---
 name: learn-bosh
 
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
 releases:
 - name: learn-bosh
   version: latest
-
-networks:
-- name: default
-  subnets:
-  - range: 10.244.0.0/28
-    reserved: [10.244.0.1]
-    static: [10.244.0.2,10.244.0.6,10.244.0.10]
-
-resource_pools:
-- name: default
-  stemcell:
-    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
-    version: latest
-  network: default
-
-compilation:
-  workers: 2
-  network: default
 
 update:
   canaries: 1
@@ -29,12 +16,14 @@ update:
   canary_watch_time: 1000-30000
   update_watch_time: 1000-30000
 
-jobs:
+instance_groups:
 - name: app
-  templates:
-  - name: app
   instances: 1
-  resource_pool: default
+  azs: [z1, z2, z3]
+  jobs:
+  - {name: app, release: learn-bosh}
+  vm_type: default
+  stemcell: default
   networks:
   - name: default
     static_ips:
