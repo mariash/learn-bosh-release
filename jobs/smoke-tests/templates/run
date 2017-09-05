@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+echo "Hello from errand!"
+
+echo "My IP:"
+ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'
