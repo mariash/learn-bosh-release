@@ -6,8 +6,8 @@ server_id = SecureRandom.uuid
 
 get '/' do
   name = 'Maria'
-  
-  "Hello, #{name} from #{server_id}"
+
+  "Hello, #{name} from #{server_id}\n"
 end
 
 get '/kill' do
