@@ -30,7 +30,7 @@ instance_groups:
     - 10.244.0.2
   properties: {}
 
-- name: smoke-tests
+- name: simple-errand
   azs: [z1]
   lifecycle: errand
   instances: 1

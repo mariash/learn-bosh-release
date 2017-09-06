@@ -5,4 +5,4 @@ set -e
 echo "Hello from errand!"
 
 echo "My IP:"
-ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'
+ifconfig | awk '/inet addr/{print substr($2,6)}' | grep -v 127.0.0.1
